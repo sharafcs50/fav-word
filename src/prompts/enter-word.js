@@ -9,12 +9,39 @@ console.log('--- loading prompt --> ');
  * @param {string} [message='enter a word'] - what the user will read in the prompt
  * @returns {string} the user input, it will not be empty
  */
-const enterWord = () => {
+const enterWord = (message = 'enter a word') => {
   // an I/O loop:
   //  a. prompt the user for a word
   //  b. check if the input is actually a word (hint at the bottom of this page)
   //  c. if it is a word, return the user input
   //  d. otherwise prompt the user again
+
+  let favoriteWord = '';
+  while (true) {
+    const promptMessage = 'please enter your favorite word!';
+    let word = prompt(promptMessage);
+    if (word === '' || word === null) {
+      alert('you entered nothing');
+      continue;
+    }
+    if (/^[a-z|-]*$/i.test(word)) {
+      favoriteWord = word;
+      const confirmMessage = 'Your favorite word is " ' + favoriteWord + ' " is it correct?';
+      const userConfirm = confirm(confirmMessage);
+      if (userConfirm) {
+        alert ('Your favorite word is " ' + favoriteWord '"');
+        break;
+      } else { 
+        alert('Then what is your favorite word?');
+        continue;
+      }
+    } else { 
+      alert (' Your favorite word does not contain only "letters and hyphens!"');
+      continue;
+    }
+    
+  }
+  return favoriteWord;
 };
 
 {
